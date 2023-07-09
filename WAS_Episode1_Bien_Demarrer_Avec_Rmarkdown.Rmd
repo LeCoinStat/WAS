@@ -1,0 +1,106 @@
+---
+title: "WAS episode 1"
+output:
+  html_document:
+    toc: yes
+    number_sections: yes
+  word_document:
+    toc: yes
+date: "2023-07-09"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Travailler avec du texte
+
+## Rmarkdown permet de faire la documentation automatique
+## Flexibilité
+
+Bienvenu sur LeCoinStat
+
+## Ecrire en gras
+**Ceci est un texte en gras**
+
+## Metre un texte en italique
+*Ceci est un texte en italique*
+
+## Mettre à la fois en gras et en italique 
+
+***Ceci est un texte en gras et en italique***
+
+## Intégrer une image dans la doc 
+Voici le début du challege ![WAS](/Users/natachanjongwayepnga/Documents/LeCoinStat_WAS/WAS1/WAS.png)
+
+## Mettre des formule mathématique
+
+Un exemple $a+b=c$
+
+## Ajout des liens 
+Abonnez-vous à la chaine [ici](https://www.youtube.com/@LeCoinStat)
+
+
+
+# Intégrer le code avec Rmarkdown
+```{r}
+data(iris)
+head(iris)
+
+```
+
+## Statistique descriptive sur la base 
+```{r}
+#Ceci est le résumé de ma base iris
+summary(iris)
+```
+
+## Afficher la base
+```{r}
+iris
+```
+
+
+## Enlever les codes dans le rendu 
+```{r echo=FALSE}
+summary(iris)
+```
+
+
+## Enlever les résultats
+```{r message=TRUE, paged.print=TRUE}
+iris
+```
+
+## Améliorer l'affichage des tableaux
+```{r paged.print=TRUE}
+library(knitr)
+kable(summary(iris))
+```
+
+## Mettre en place des graphiques
+```{r}
+plot(iris$Sepal.Length,iris$Petal.Length)
+```
+
+## Mettre en place des graphiques
+```{r fig.height=6, fig.width=6}
+plot(iris$Sepal.Length,iris$Petal.Length)
+```
+
+
+## Flextable pour améliorer les tableaux
+le lien [ici](https://ardata-fr.github.io/flextable-book/)
+
+## Kableextra
+le lien [ici](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
+
+## Lien vers la documentation markdown
+Le lien [ici](https://bookdown.org/yihui/rmarkdown/)
+
+## Pour télécharger automatiquement un fichier pdf
+Utiliser la librairie tinytex
+
+
+
+
