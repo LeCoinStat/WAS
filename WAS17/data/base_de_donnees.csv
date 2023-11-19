@@ -1,0 +1,1001 @@
+"Identifiant","Niveau_de_Satisfaction","Probabilite_de_Recommandation"
+1,"Très Insatisfait",1
+2,"Très Insatisfait",4
+3,"Très Insatisfait",1
+4,"Insatisfait",2
+5,"Insatisfait",1
+6,"Neutre",3
+7,"Insatisfait",3
+8,"Très Insatisfait",2
+9,"Très Insatisfait",3
+10,"Très Insatisfait",3
+11,"Très Satisfait",1
+12,"Très Insatisfait",2
+13,"Insatisfait",2
+14,"Neutre",4
+15,"Satisfait",4
+16,"Très Insatisfait",1
+17,"Neutre",2
+18,"Très Insatisfait",2
+19,"Insatisfait",3
+20,"Très Insatisfait",1
+21,"Satisfait",3
+22,"Insatisfait",3
+23,"Satisfait",4
+24,"Très Insatisfait",1
+25,"Très Insatisfait",3
+26,"Très Insatisfait",3
+27,"Neutre",2
+28,"Insatisfait",4
+29,"Insatisfait",1
+30,"Neutre",1
+31,"Insatisfait",3
+32,"Insatisfait",2
+33,"Insatisfait",1
+34,"Très Insatisfait",1
+35,"Très Insatisfait",3
+36,"Neutre",3
+37,"Neutre",3
+38,"Satisfait",4
+39,"Satisfait",4
+40,"Neutre",2
+41,"Insatisfait",2
+42,"Très Insatisfait",1
+43,"Insatisfait",1
+44,"Neutre",4
+45,"Satisfait",4
+46,"Satisfait",2
+47,"Très Satisfait",4
+48,"Très Insatisfait",2
+49,"Très Insatisfait",2
+50,"Insatisfait",3
+51,"Insatisfait",2
+52,"Très Insatisfait",1
+53,"Satisfait",1
+54,"Très Insatisfait",1
+55,"Satisfait",4
+56,"Très Insatisfait",3
+57,"Neutre",3
+58,"Neutre",2
+59,"Neutre",2
+60,"Neutre",1
+61,"Très Insatisfait",4
+62,"Très Satisfait",4
+63,"Neutre",3
+64,"Très Satisfait",4
+65,"Très Insatisfait",2
+66,"Très Insatisfait",3
+67,"Insatisfait",1
+68,"Très Insatisfait",4
+69,"Très Satisfait",3
+70,"Satisfait",3
+71,"Très Insatisfait",3
+72,"Satisfait",2
+73,"Neutre",3
+74,"Insatisfait",1
+75,"Neutre",3
+76,"Neutre",2
+77,"Insatisfait",2
+78,"Insatisfait",2
+79,"Satisfait",2
+80,"Très Insatisfait",2
+81,"Très Insatisfait",3
+82,"Neutre",4
+83,"Neutre",3
+84,"Très Insatisfait",1
+85,"Insatisfait",2
+86,"Neutre",4
+87,"Insatisfait",4
+88,"Satisfait",4
+89,"Neutre",3
+90,"Insatisfait",1
+91,"Très Insatisfait",4
+92,"Insatisfait",3
+93,"Très Insatisfait",2
+94,"Très Insatisfait",1
+95,"Insatisfait",3
+96,"Neutre",3
+97,"Satisfait",4
+98,"Insatisfait",1
+99,"Insatisfait",2
+100,"Très Insatisfait",1
+101,"Neutre",3
+102,"Insatisfait",4
+103,"Insatisfait",1
+104,"Satisfait",2
+105,"Neutre",4
+106,"Neutre",3
+107,"Très Insatisfait",3
+108,"Très Insatisfait",1
+109,"Très Satisfait",2
+110,"Très Satisfait",4
+111,"Neutre",4
+112,"Très Insatisfait",1
+113,"Très Insatisfait",2
+114,"Insatisfait",2
+115,"Insatisfait",1
+116,"Très Insatisfait",4
+117,"Neutre",4
+118,"Très Insatisfait",4
+119,"Neutre",2
+120,"Très Satisfait",3
+121,"Satisfait",4
+122,"Neutre",4
+123,"Très Insatisfait",3
+124,"Très Insatisfait",4
+125,"Très Satisfait",3
+126,"Très Insatisfait",3
+127,"Très Satisfait",2
+128,"Insatisfait",2
+129,"Insatisfait",1
+130,"Satisfait",1
+131,"Très Insatisfait",1
+132,"Insatisfait",2
+133,"Très Insatisfait",3
+134,"Très Insatisfait",1
+135,"Neutre",3
+136,"Insatisfait",1
+137,"Insatisfait",2
+138,"Très Satisfait",4
+139,"Satisfait",3
+140,"Insatisfait",2
+141,"Neutre",1
+142,"Très Insatisfait",1
+143,"Insatisfait",1
+144,"Très Insatisfait",1
+145,"Très Insatisfait",1
+146,"Très Insatisfait",1
+147,"Très Insatisfait",1
+148,"Insatisfait",4
+149,"Neutre",4
+150,"Neutre",3
+151,"Insatisfait",3
+152,"Satisfait",2
+153,"Neutre",3
+154,"Très Insatisfait",1
+155,"Insatisfait",2
+156,"Insatisfait",1
+157,"Insatisfait",2
+158,"Très Satisfait",4
+159,"Très Insatisfait",1
+160,"Insatisfait",2
+161,"Satisfait",4
+162,"Très Insatisfait",1
+163,"Neutre",2
+164,"Neutre",4
+165,"Insatisfait",1
+166,"Satisfait",2
+167,"Très Insatisfait",2
+168,"Satisfait",3
+169,"Neutre",4
+170,"Insatisfait",1
+171,"Très Insatisfait",2
+172,"Insatisfait",1
+173,"Très Insatisfait",1
+174,"Insatisfait",3
+175,"Très Satisfait",4
+176,"Très Insatisfait",1
+177,"Insatisfait",4
+178,"Très Satisfait",4
+179,"Très Insatisfait",3
+180,"Neutre",2
+181,"Satisfait",4
+182,"Neutre",2
+183,"Très Insatisfait",2
+184,"Insatisfait",1
+185,"Neutre",4
+186,"Très Insatisfait",2
+187,"Très Satisfait",4
+188,"Neutre",4
+189,"Très Insatisfait",2
+190,"Neutre",2
+191,"Neutre",3
+192,"Très Insatisfait",2
+193,"Neutre",4
+194,"Satisfait",1
+195,"Très Satisfait",1
+196,"Neutre",2
+197,"Neutre",4
+198,"Insatisfait",2
+199,"Insatisfait",3
+200,"Très Insatisfait",1
+201,"Très Satisfait",4
+202,"Neutre",3
+203,"Neutre",2
+204,"Très Insatisfait",1
+205,"Très Insatisfait",1
+206,"Insatisfait",2
+207,"Très Insatisfait",1
+208,"Neutre",3
+209,"Insatisfait",1
+210,"Très Insatisfait",2
+211,"Insatisfait",2
+212,"Neutre",4
+213,"Très Insatisfait",4
+214,"Très Insatisfait",2
+215,"Insatisfait",3
+216,"Très Insatisfait",1
+217,"Très Insatisfait",4
+218,"Neutre",4
+219,"Insatisfait",3
+220,"Insatisfait",1
+221,"Très Insatisfait",3
+222,"Neutre",4
+223,"Très Satisfait",2
+224,"Très Insatisfait",2
+225,"Satisfait",3
+226,"Très Insatisfait",3
+227,"Très Insatisfait",1
+228,"Insatisfait",2
+229,"Très Satisfait",4
+230,"Très Insatisfait",2
+231,"Neutre",4
+232,"Très Satisfait",4
+233,"Insatisfait",2
+234,"Neutre",3
+235,"Insatisfait",3
+236,"Insatisfait",2
+237,"Satisfait",2
+238,"Très Insatisfait",2
+239,"Très Insatisfait",2
+240,"Satisfait",3
+241,"Très Insatisfait",1
+242,"Neutre",3
+243,"Très Insatisfait",4
+244,"Satisfait",1
+245,"Satisfait",2
+246,"Très Satisfait",2
+247,"Insatisfait",4
+248,"Neutre",3
+249,"Très Insatisfait",1
+250,"Très Insatisfait",3
+251,"Satisfait",3
+252,"Satisfait",4
+253,"Insatisfait",2
+254,"Neutre",3
+255,"Insatisfait",4
+256,"Très Insatisfait",1
+257,"Neutre",4
+258,"Insatisfait",3
+259,"Très Insatisfait",3
+260,"Satisfait",3
+261,"Neutre",4
+262,"Très Satisfait",4
+263,"Insatisfait",1
+264,"Très Insatisfait",2
+265,"Neutre",4
+266,"Très Insatisfait",4
+267,"Très Insatisfait",3
+268,"Très Satisfait",4
+269,"Très Insatisfait",2
+270,"Très Insatisfait",1
+271,"Très Insatisfait",1
+272,"Insatisfait",1
+273,"Très Insatisfait",4
+274,"Très Insatisfait",1
+275,"Satisfait",2
+276,"Satisfait",2
+277,"Satisfait",4
+278,"Insatisfait",1
+279,"Insatisfait",2
+280,"Très Insatisfait",2
+281,"Insatisfait",1
+282,"Très Satisfait",4
+283,"Insatisfait",1
+284,"Insatisfait",2
+285,"Insatisfait",4
+286,"Très Insatisfait",2
+287,"Insatisfait",4
+288,"Très Insatisfait",1
+289,"Neutre",2
+290,"Insatisfait",1
+291,"Très Insatisfait",1
+292,"Satisfait",4
+293,"Très Insatisfait",1
+294,"Insatisfait",1
+295,"Très Satisfait",4
+296,"Très Insatisfait",1
+297,"Très Insatisfait",3
+298,"Très Satisfait",4
+299,"Neutre",4
+300,"Très Satisfait",1
+301,"Insatisfait",1
+302,"Très Satisfait",4
+303,"Très Insatisfait",2
+304,"Neutre",3
+305,"Neutre",1
+306,"Très Insatisfait",2
+307,"Insatisfait",3
+308,"Neutre",3
+309,"Satisfait",4
+310,"Insatisfait",2
+311,"Insatisfait",1
+312,"Très Insatisfait",3
+313,"Insatisfait",1
+314,"Neutre",2
+315,"Neutre",3
+316,"Très Satisfait",4
+317,"Très Insatisfait",3
+318,"Neutre",4
+319,"Très Insatisfait",1
+320,"Insatisfait",2
+321,"Neutre",2
+322,"Insatisfait",2
+323,"Insatisfait",2
+324,"Neutre",4
+325,"Insatisfait",3
+326,"Très Insatisfait",2
+327,"Insatisfait",1
+328,"Très Insatisfait",3
+329,"Très Insatisfait",1
+330,"Insatisfait",2
+331,"Très Insatisfait",1
+332,"Très Insatisfait",1
+333,"Neutre",2
+334,"Neutre",3
+335,"Neutre",2
+336,"Très Insatisfait",1
+337,"Très Insatisfait",2
+338,"Satisfait",3
+339,"Satisfait",1
+340,"Satisfait",3
+341,"Neutre",4
+342,"Très Insatisfait",4
+343,"Satisfait",2
+344,"Satisfait",3
+345,"Très Insatisfait",2
+346,"Très Insatisfait",3
+347,"Insatisfait",1
+348,"Insatisfait",3
+349,"Insatisfait",3
+350,"Insatisfait",2
+351,"Neutre",1
+352,"Très Satisfait",4
+353,"Très Insatisfait",3
+354,"Neutre",3
+355,"Insatisfait",1
+356,"Très Insatisfait",2
+357,"Très Insatisfait",1
+358,"Très Insatisfait",2
+359,"Très Insatisfait",4
+360,"Insatisfait",2
+361,"Insatisfait",2
+362,"Neutre",3
+363,"Très Insatisfait",3
+364,"Très Satisfait",2
+365,"Insatisfait",1
+366,"Très Insatisfait",2
+367,"Insatisfait",3
+368,"Neutre",3
+369,"Neutre",4
+370,"Insatisfait",2
+371,"Très Satisfait",2
+372,"Insatisfait",2
+373,"Très Insatisfait",1
+374,"Insatisfait",4
+375,"Insatisfait",1
+376,"Très Insatisfait",4
+377,"Satisfait",4
+378,"Insatisfait",3
+379,"Très Insatisfait",2
+380,"Satisfait",3
+381,"Insatisfait",3
+382,"Très Insatisfait",1
+383,"Satisfait",4
+384,"Insatisfait",1
+385,"Satisfait",4
+386,"Très Insatisfait",1
+387,"Insatisfait",4
+388,"Neutre",4
+389,"Très Insatisfait",1
+390,"Neutre",3
+391,"Insatisfait",2
+392,"Très Insatisfait",1
+393,"Très Insatisfait",1
+394,"Insatisfait",2
+395,"Satisfait",4
+396,"Satisfait",1
+397,"Très Insatisfait",2
+398,"Insatisfait",2
+399,"Neutre",3
+400,"Satisfait",3
+401,"Neutre",3
+402,"Neutre",4
+403,"Très Insatisfait",1
+404,"Satisfait",4
+405,"Très Satisfait",4
+406,"Insatisfait",1
+407,"Très Insatisfait",4
+408,"Neutre",3
+409,"Neutre",1
+410,"Insatisfait",1
+411,"Très Satisfait",4
+412,"Neutre",3
+413,"Très Insatisfait",2
+414,"Très Insatisfait",3
+415,"Très Satisfait",1
+416,"Très Insatisfait",2
+417,"Insatisfait",3
+418,"Insatisfait",1
+419,"Neutre",2
+420,"Insatisfait",1
+421,"Insatisfait",1
+422,"Très Satisfait",3
+423,"Insatisfait",4
+424,"Insatisfait",2
+425,"Neutre",4
+426,"Insatisfait",1
+427,"Très Insatisfait",3
+428,"Très Satisfait",3
+429,"Insatisfait",2
+430,"Neutre",2
+431,"Neutre",4
+432,"Insatisfait",1
+433,"Très Insatisfait",1
+434,"Neutre",3
+435,"Très Insatisfait",1
+436,"Insatisfait",1
+437,"Très Insatisfait",4
+438,"Neutre",1
+439,"Très Insatisfait",2
+440,"Neutre",4
+441,"Neutre",3
+442,"Très Insatisfait",3
+443,"Très Insatisfait",2
+444,"Très Insatisfait",2
+445,"Très Insatisfait",1
+446,"Très Satisfait",4
+447,"Très Insatisfait",1
+448,"Très Insatisfait",1
+449,"Insatisfait",2
+450,"Insatisfait",1
+451,"Très Satisfait",4
+452,"Insatisfait",1
+453,"Très Insatisfait",1
+454,"Neutre",4
+455,"Très Satisfait",4
+456,"Satisfait",4
+457,"Neutre",4
+458,"Très Insatisfait",2
+459,"Neutre",3
+460,"Insatisfait",1
+461,"Très Insatisfait",4
+462,"Neutre",3
+463,"Satisfait",4
+464,"Très Insatisfait",1
+465,"Insatisfait",2
+466,"Insatisfait",4
+467,"Très Insatisfait",3
+468,"Très Insatisfait",2
+469,"Insatisfait",1
+470,"Très Insatisfait",1
+471,"Très Insatisfait",2
+472,"Très Insatisfait",1
+473,"Insatisfait",3
+474,"Insatisfait",3
+475,"Insatisfait",1
+476,"Insatisfait",2
+477,"Neutre",3
+478,"Très Insatisfait",1
+479,"Très Satisfait",3
+480,"Insatisfait",4
+481,"Très Insatisfait",2
+482,"Insatisfait",2
+483,"Neutre",4
+484,"Très Insatisfait",2
+485,"Satisfait",3
+486,"Très Insatisfait",1
+487,"Très Insatisfait",4
+488,"Neutre",2
+489,"Très Insatisfait",3
+490,"Neutre",2
+491,"Neutre",4
+492,"Très Insatisfait",1
+493,"Insatisfait",1
+494,"Satisfait",2
+495,"Neutre",4
+496,"Très Satisfait",2
+497,"Satisfait",1
+498,"Très Insatisfait",2
+499,"Neutre",3
+500,"Très Insatisfait",1
+501,"Très Satisfait",4
+502,"Neutre",3
+503,"Neutre",2
+504,"Insatisfait",1
+505,"Neutre",3
+506,"Insatisfait",2
+507,"Neutre",4
+508,"Neutre",4
+509,"Satisfait",3
+510,"Insatisfait",3
+511,"Très Insatisfait",4
+512,"Très Insatisfait",1
+513,"Très Insatisfait",2
+514,"Très Insatisfait",1
+515,"Neutre",3
+516,"Neutre",4
+517,"Insatisfait",1
+518,"Neutre",4
+519,"Insatisfait",3
+520,"Insatisfait",1
+521,"Neutre",4
+522,"Neutre",3
+523,"Neutre",4
+524,"Très Insatisfait",2
+525,"Insatisfait",2
+526,"Satisfait",3
+527,"Insatisfait",2
+528,"Très Insatisfait",3
+529,"Insatisfait",4
+530,"Satisfait",2
+531,"Très Satisfait",4
+532,"Insatisfait",3
+533,"Neutre",3
+534,"Insatisfait",2
+535,"Satisfait",2
+536,"Très Insatisfait",2
+537,"Insatisfait",3
+538,"Neutre",4
+539,"Très Satisfait",3
+540,"Satisfait",4
+541,"Très Satisfait",4
+542,"Très Insatisfait",4
+543,"Neutre",3
+544,"Neutre",3
+545,"Neutre",1
+546,"Satisfait",1
+547,"Insatisfait",2
+548,"Satisfait",2
+549,"Insatisfait",1
+550,"Très Insatisfait",3
+551,"Insatisfait",4
+552,"Très Insatisfait",2
+553,"Insatisfait",3
+554,"Insatisfait",3
+555,"Très Satisfait",3
+556,"Insatisfait",3
+557,"Insatisfait",2
+558,"Très Insatisfait",1
+559,"Insatisfait",2
+560,"Très Insatisfait",2
+561,"Insatisfait",2
+562,"Très Satisfait",3
+563,"Insatisfait",1
+564,"Insatisfait",2
+565,"Insatisfait",2
+566,"Très Satisfait",1
+567,"Très Insatisfait",1
+568,"Insatisfait",4
+569,"Très Insatisfait",2
+570,"Très Satisfait",2
+571,"Insatisfait",3
+572,"Insatisfait",2
+573,"Insatisfait",2
+574,"Insatisfait",4
+575,"Très Insatisfait",3
+576,"Très Insatisfait",3
+577,"Très Insatisfait",1
+578,"Très Insatisfait",1
+579,"Insatisfait",2
+580,"Neutre",4
+581,"Neutre",2
+582,"Très Insatisfait",2
+583,"Satisfait",4
+584,"Très Insatisfait",3
+585,"Insatisfait",4
+586,"Insatisfait",1
+587,"Satisfait",4
+588,"Très Satisfait",2
+589,"Insatisfait",2
+590,"Insatisfait",1
+591,"Insatisfait",2
+592,"Neutre",3
+593,"Neutre",3
+594,"Très Insatisfait",1
+595,"Très Insatisfait",2
+596,"Très Satisfait",1
+597,"Insatisfait",2
+598,"Neutre",1
+599,"Très Satisfait",4
+600,"Très Insatisfait",2
+601,"Très Insatisfait",1
+602,"Neutre",3
+603,"Insatisfait",1
+604,"Très Satisfait",3
+605,"Très Insatisfait",2
+606,"Très Insatisfait",3
+607,"Neutre",2
+608,"Très Insatisfait",2
+609,"Neutre",1
+610,"Insatisfait",1
+611,"Neutre",3
+612,"Insatisfait",2
+613,"Très Insatisfait",2
+614,"Insatisfait",1
+615,"Insatisfait",2
+616,"Neutre",4
+617,"Très Insatisfait",2
+618,"Insatisfait",2
+619,"Insatisfait",1
+620,"Satisfait",2
+621,"Satisfait",3
+622,"Très Insatisfait",2
+623,"Insatisfait",1
+624,"Neutre",4
+625,"Neutre",3
+626,"Insatisfait",4
+627,"Très Insatisfait",1
+628,"Très Insatisfait",1
+629,"Insatisfait",1
+630,"Très Insatisfait",2
+631,"Neutre",3
+632,"Neutre",4
+633,"Très Insatisfait",1
+634,"Insatisfait",2
+635,"Très Insatisfait",3
+636,"Très Insatisfait",2
+637,"Très Satisfait",3
+638,"Neutre",3
+639,"Neutre",3
+640,"Insatisfait",2
+641,"Très Insatisfait",1
+642,"Satisfait",4
+643,"Très Insatisfait",4
+644,"Très Insatisfait",2
+645,"Satisfait",3
+646,"Neutre",1
+647,"Satisfait",4
+648,"Très Insatisfait",1
+649,"Insatisfait",2
+650,"Très Insatisfait",3
+651,"Très Satisfait",2
+652,"Très Satisfait",4
+653,"Très Satisfait",4
+654,"Très Insatisfait",3
+655,"Très Insatisfait",4
+656,"Neutre",3
+657,"Insatisfait",2
+658,"Neutre",3
+659,"Très Insatisfait",3
+660,"Neutre",3
+661,"Très Insatisfait",2
+662,"Très Insatisfait",3
+663,"Neutre",4
+664,"Très Insatisfait",4
+665,"Insatisfait",1
+666,"Neutre",4
+667,"Insatisfait",1
+668,"Insatisfait",1
+669,"Insatisfait",2
+670,"Très Insatisfait",3
+671,"Très Insatisfait",3
+672,"Très Insatisfait",2
+673,"Neutre",4
+674,"Très Insatisfait",4
+675,"Très Insatisfait",4
+676,"Très Insatisfait",2
+677,"Insatisfait",4
+678,"Très Satisfait",3
+679,"Insatisfait",1
+680,"Insatisfait",1
+681,"Insatisfait",2
+682,"Insatisfait",4
+683,"Satisfait",4
+684,"Satisfait",2
+685,"Très Insatisfait",2
+686,"Neutre",4
+687,"Très Insatisfait",3
+688,"Satisfait",1
+689,"Très Insatisfait",3
+690,"Satisfait",4
+691,"Très Insatisfait",1
+692,"Insatisfait",1
+693,"Très Insatisfait",1
+694,"Insatisfait",1
+695,"Neutre",4
+696,"Satisfait",4
+697,"Très Insatisfait",2
+698,"Très Satisfait",2
+699,"Neutre",4
+700,"Satisfait",4
+701,"Insatisfait",1
+702,"Neutre",4
+703,"Très Insatisfait",4
+704,"Neutre",4
+705,"Très Insatisfait",4
+706,"Satisfait",2
+707,"Très Satisfait",4
+708,"Très Satisfait",4
+709,"Très Satisfait",2
+710,"Insatisfait",2
+711,"Satisfait",3
+712,"Insatisfait",1
+713,"Insatisfait",4
+714,"Insatisfait",2
+715,"Très Insatisfait",3
+716,"Satisfait",4
+717,"Très Insatisfait",2
+718,"Très Insatisfait",4
+719,"Neutre",4
+720,"Insatisfait",2
+721,"Satisfait",2
+722,"Très Insatisfait",1
+723,"Insatisfait",1
+724,"Satisfait",1
+725,"Très Satisfait",4
+726,"Satisfait",3
+727,"Neutre",3
+728,"Très Insatisfait",1
+729,"Très Insatisfait",2
+730,"Très Insatisfait",1
+731,"Insatisfait",3
+732,"Neutre",3
+733,"Satisfait",4
+734,"Insatisfait",1
+735,"Très Satisfait",4
+736,"Insatisfait",4
+737,"Neutre",1
+738,"Neutre",4
+739,"Neutre",1
+740,"Très Satisfait",4
+741,"Insatisfait",3
+742,"Très Insatisfait",1
+743,"Très Insatisfait",4
+744,"Très Insatisfait",1
+745,"Satisfait",3
+746,"Neutre",2
+747,"Très Insatisfait",1
+748,"Très Insatisfait",1
+749,"Très Insatisfait",3
+750,"Insatisfait",1
+751,"Neutre",2
+752,"Très Insatisfait",2
+753,"Très Insatisfait",4
+754,"Insatisfait",1
+755,"Très Insatisfait",1
+756,"Insatisfait",2
+757,"Très Insatisfait",2
+758,"Satisfait",4
+759,"Neutre",2
+760,"Insatisfait",1
+761,"Neutre",3
+762,"Très Insatisfait",4
+763,"Neutre",4
+764,"Insatisfait",4
+765,"Neutre",2
+766,"Insatisfait",3
+767,"Neutre",4
+768,"Très Insatisfait",4
+769,"Neutre",3
+770,"Insatisfait",1
+771,"Très Insatisfait",3
+772,"Insatisfait",4
+773,"Insatisfait",4
+774,"Insatisfait",1
+775,"Insatisfait",1
+776,"Très Satisfait",2
+777,"Neutre",2
+778,"Très Insatisfait",1
+779,"Très Insatisfait",1
+780,"Insatisfait",3
+781,"Insatisfait",1
+782,"Neutre",4
+783,"Très Insatisfait",4
+784,"Satisfait",4
+785,"Très Satisfait",2
+786,"Insatisfait",1
+787,"Très Satisfait",3
+788,"Très Insatisfait",1
+789,"Neutre",2
+790,"Satisfait",3
+791,"Très Insatisfait",1
+792,"Insatisfait",2
+793,"Neutre",3
+794,"Insatisfait",4
+795,"Très Satisfait",3
+796,"Insatisfait",4
+797,"Insatisfait",1
+798,"Neutre",2
+799,"Très Insatisfait",3
+800,"Très Satisfait",4
+801,"Très Insatisfait",4
+802,"Insatisfait",2
+803,"Très Insatisfait",1
+804,"Très Insatisfait",2
+805,"Neutre",3
+806,"Neutre",2
+807,"Insatisfait",4
+808,"Satisfait",3
+809,"Insatisfait",1
+810,"Satisfait",4
+811,"Satisfait",4
+812,"Insatisfait",3
+813,"Neutre",3
+814,"Très Satisfait",4
+815,"Satisfait",4
+816,"Très Insatisfait",2
+817,"Très Insatisfait",1
+818,"Satisfait",4
+819,"Insatisfait",4
+820,"Neutre",4
+821,"Insatisfait",4
+822,"Insatisfait",3
+823,"Neutre",4
+824,"Très Satisfait",3
+825,"Très Insatisfait",3
+826,"Insatisfait",3
+827,"Neutre",3
+828,"Très Insatisfait",2
+829,"Neutre",3
+830,"Insatisfait",1
+831,"Neutre",2
+832,"Insatisfait",1
+833,"Neutre",3
+834,"Très Satisfait",3
+835,"Insatisfait",1
+836,"Insatisfait",4
+837,"Très Satisfait",4
+838,"Insatisfait",1
+839,"Neutre",2
+840,"Très Satisfait",3
+841,"Insatisfait",1
+842,"Insatisfait",1
+843,"Très Satisfait",2
+844,"Neutre",4
+845,"Neutre",4
+846,"Neutre",2
+847,"Neutre",3
+848,"Très Insatisfait",2
+849,"Très Insatisfait",2
+850,"Très Insatisfait",4
+851,"Satisfait",1
+852,"Très Insatisfait",1
+853,"Insatisfait",2
+854,"Très Insatisfait",1
+855,"Très Satisfait",3
+856,"Insatisfait",1
+857,"Insatisfait",3
+858,"Satisfait",4
+859,"Insatisfait",1
+860,"Neutre",2
+861,"Neutre",3
+862,"Très Insatisfait",2
+863,"Très Insatisfait",3
+864,"Insatisfait",3
+865,"Neutre",2
+866,"Neutre",3
+867,"Neutre",4
+868,"Satisfait",2
+869,"Très Insatisfait",3
+870,"Insatisfait",3
+871,"Neutre",4
+872,"Très Insatisfait",3
+873,"Très Insatisfait",1
+874,"Très Insatisfait",1
+875,"Neutre",2
+876,"Très Satisfait",4
+877,"Insatisfait",1
+878,"Très Insatisfait",3
+879,"Très Insatisfait",1
+880,"Satisfait",2
+881,"Insatisfait",4
+882,"Neutre",4
+883,"Satisfait",4
+884,"Neutre",2
+885,"Très Insatisfait",3
+886,"Satisfait",4
+887,"Neutre",3
+888,"Très Insatisfait",1
+889,"Neutre",3
+890,"Très Satisfait",4
+891,"Très Insatisfait",3
+892,"Satisfait",4
+893,"Très Insatisfait",1
+894,"Très Insatisfait",1
+895,"Très Insatisfait",1
+896,"Insatisfait",2
+897,"Neutre",4
+898,"Neutre",4
+899,"Insatisfait",4
+900,"Très Insatisfait",1
+901,"Satisfait",3
+902,"Insatisfait",1
+903,"Neutre",3
+904,"Très Insatisfait",2
+905,"Très Satisfait",4
+906,"Neutre",4
+907,"Satisfait",3
+908,"Insatisfait",3
+909,"Insatisfait",4
+910,"Neutre",2
+911,"Neutre",4
+912,"Insatisfait",2
+913,"Très Satisfait",3
+914,"Insatisfait",1
+915,"Satisfait",3
+916,"Neutre",3
+917,"Neutre",4
+918,"Neutre",4
+919,"Neutre",1
+920,"Neutre",1
+921,"Très Insatisfait",1
+922,"Insatisfait",2
+923,"Neutre",1
+924,"Très Insatisfait",1
+925,"Neutre",4
+926,"Très Insatisfait",2
+927,"Neutre",1
+928,"Satisfait",3
+929,"Neutre",4
+930,"Neutre",2
+931,"Insatisfait",3
+932,"Très Insatisfait",3
+933,"Insatisfait",3
+934,"Très Insatisfait",1
+935,"Neutre",4
+936,"Insatisfait",3
+937,"Insatisfait",1
+938,"Insatisfait",1
+939,"Très Insatisfait",2
+940,"Insatisfait",3
+941,"Insatisfait",3
+942,"Très Satisfait",4
+943,"Très Insatisfait",1
+944,"Très Insatisfait",2
+945,"Très Insatisfait",2
+946,"Satisfait",3
+947,"Insatisfait",4
+948,"Neutre",1
+949,"Très Insatisfait",1
+950,"Insatisfait",1
+951,"Très Insatisfait",3
+952,"Neutre",1
+953,"Très Satisfait",3
+954,"Très Insatisfait",1
+955,"Très Insatisfait",1
+956,"Très Satisfait",4
+957,"Très Insatisfait",1
+958,"Neutre",4
+959,"Insatisfait",3
+960,"Très Insatisfait",1
+961,"Satisfait",3
+962,"Très Insatisfait",2
+963,"Neutre",1
+964,"Insatisfait",2
+965,"Neutre",4
+966,"Très Insatisfait",1
+967,"Très Satisfait",4
+968,"Très Insatisfait",1
+969,"Très Insatisfait",3
+970,"Très Insatisfait",1
+971,"Neutre",4
+972,"Insatisfait",3
+973,"Très Insatisfait",2
+974,"Très Insatisfait",3
+975,"Insatisfait",4
+976,"Insatisfait",2
+977,"Satisfait",3
+978,"Très Insatisfait",4
+979,"Très Satisfait",1
+980,"Très Insatisfait",2
+981,"Neutre",4
+982,"Très Insatisfait",2
+983,"Très Insatisfait",3
+984,"Très Insatisfait",1
+985,"Très Insatisfait",2
+986,"Satisfait",1
+987,"Satisfait",4
+988,"Insatisfait",2
+989,"Très Insatisfait",1
+990,"Neutre",4
+991,"Insatisfait",2
+992,"Insatisfait",1
+993,"Très Satisfait",3
+994,"Très Insatisfait",4
+995,"Très Satisfait",3
+996,"Très Insatisfait",1
+997,"Très Satisfait",2
+998,"Très Insatisfait",2
+999,"Insatisfait",1
+1000,"Neutre",3
