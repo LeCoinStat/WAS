@@ -1,0 +1,360 @@
+---
+title: "WAS 18: Régression linéaire dans la pratique"
+author: "Natacha NJONGWA YEPNGA"
+date: "`r Sys.Date()`"
+output: 
+  word_document:
+    toc: true
+header-includes:
+  - "\\usepackage{hyperref}"  # Importation du package hyperref pour les liens
+---
+
+# [LeCoinStat](https://youtube.com/c/LeCoinStat?sub_confirmation=1)
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Régression linéaire simple
+Construire un modèle qui permet de prédire les ventes à partir des dépenses publicitaires.
+
+## Etape 1: Importation des données et descriptions des données
+
+```{r}
+#
+donnees_marketing<-read.csv("/Users/natachanjongwayepnga/Documents/GitHub/Sans titre/WAS18/data/donnees_marketing.csv")
+head(donnees_marketing)
+```
+```{r summary-stats, results='asis'}
+#install.packages("kableExtra")
+# Résumé statistique des variables
+summary(donnees_marketing)
+
+
+
+```
+```{r}
+library(ggplot2)
+# Création des boxplots
+boxplot_plot <- ggplot(donnees_marketing, aes(x = "", y = Depenses_Publicitaires)) +
+  geom_boxplot(fill = "lightblue") +
+  labs(title = "Boxplot des Dépenses Publicitaires", y = "Valeurs") +
+  theme_minimal() +
+  theme(axis.text.x = element_blank())
+
+boxplot_plot2 <- ggplot(donnees_marketing, aes(x = "", y = Ventes)) +
+  geom_boxplot(fill = "lightgreen") +
+  labs(title = "Boxplot des Ventes", y = "Valeurs") +
+  theme_minimal() +
+  theme(axis.text.x = element_blank())
+
+# Afficher les graphiques côte à côte
+library(gridExtra)
+grid.arrange(boxplot_plot, boxplot_plot2, ncol = 2)
+```
+
+## Etape 2: Analyse bivariée
+
+```{r scatter-plot, echo=FALSE, fig.width=8, fig.height=6}
+# Chargement de la bibliothèque ggplot2
+library(ggplot2)
+
+# Création du nuage de points
+scatter_plot <- ggplot(donnees_marketing, aes(x = Depenses_Publicitaires, y = Ventes)) +
+  geom_point(color = "blue") +
+  labs(title = "Nuage de Points entre Dépenses Publicitaires et Ventes",
+       x = "Dépenses Publicitaires",
+       y = "Ventes") +
+  theme_minimal()
+
+# Afficher le nuage de points
+print(scatter_plot)
+```
+## Etape 3: Construction du modèle 
+```{r regression-lineaire, echo=TRUE}
+# Réalisation d'une régression linéaire simple
+modele_regression <- lm(Ventes ~ Depenses_Publicitaires, data = donnees_marketing)
+
+# Résumé de la régression
+summary(modele_regression)
+```
+
+## Etape 4: Vérification des hypothèse du modèle
+
+### H1: Linéarité
+
+L'hypothèse de linéarité suppose que la relation entre la variable indépendante (Dépenses Publicitaires) et la variable dépendante (Ventes) est linéaire.
+
+```{r linearite-hypothese, echo=TRUE, fig.width=6, fig.height=4}
+
+# Chargement de la bibliothèque ggplot2
+library(ggplot2)
+
+# Création du nuage de points
+scatter_plot <- ggplot(donnees_marketing, aes(x = Depenses_Publicitaires, y = Ventes)) +
+  geom_point(color = "blue") +
+  labs(title = "Nuage de Points entre Dépenses Publicitaires et Ventes",
+       x = "Dépenses Publicitaires",
+       y = "Ventes") +
+  theme_minimal()
+
+# Afficher le nuage de points
+print(scatter_plot)
+```
+
+
+### H2: Nullité de l'espérance des erreurs
+L'hypothèse de nullité de l'espérance des erreurs suppose que la moyenne des résidus (erreurs de prédiction) est nulle. Nous pouvons vérifier cela en examinant la moyenne des résidus.
+```{r}
+#Calcul de la moyenne des résidus
+moyenne_residus <- mean(residuals(modele_regression))
+moyenne_residus
+```
+
+### H3: Absence d'autocorrélation 
+
+L'hypothèse d'absence d'autocorrélation suppose que les résidus ne sont pas corrélés les uns avec les autres. 
+
+Le test de Durbin-Watson permet de vérifier la présence d'autocorrélation positive ou négative des résidus dans un modèle de régression. Voici comment interpréter les résultats du test :
+
+Statistique de Durbin-Watson (DW) :
+
+- Si DW est proche de 2, cela suggère l'absence d'autocorrélation.
+- Si DW est significativement inférieur à 2, cela suggère une autocorrélation positive (les résidus sont corrélés positivement).
+- Si DW est significativement supérieur à 2, cela suggère une autocorrélation négative (les résidus sont corrélés négativement).
+
+```{r}
+# Chargement de la bibliothèque lmtest
+library(lmtest)
+
+# Test de Durbin-Watson
+durbin_watson_test <- dwtest(modele_regression)
+durbin_watson_test
+```
+
+### H4: Homoscédasticité
+L'hypothèse d'homoscédasticité suppose que la variance des résidus est constante. 
+Pour valider l'homoscédasticité on peut:
+-Effectuer une analyse graphique.
+-Effectuer le test de White ou le test de Breusch-Pagan.
+
+```{r}
+library(ggplot2)
+# Graphique des résidus en fonction des valeurs prédites
+homoscedasticite_plot <- ggplot(data.frame(Predicted = fitted(modele_regression), Residus = residuals(modele_regression)), aes(x = Predicted, y = Residus)) +
+  geom_point() +
+  geom_hline(yintercept = 0, color = "red", linetype = "dashed") +
+  labs(title = "Vérification de l'hypothèse d'homoscédasticité",
+       x = "Valeurs prédites",
+       y = "Résidus") +
+  theme_minimal()
+print(homoscedasticite_plot)
+```
+
+
+### H5: Normalité (optionnel)
+
+L'hypothèse de normalité suppose que les résidus suivent une distribution normale.
+
+```{r}
+# Extraction des résidus
+residus <- residuals(modele_regression)
+
+# Histogramme des résidus
+hist(residus, main = "Histogramme des Résidus", xlab = "Résidus", ylab = "Fréquence")
+```
+
+
+```{r}
+# QQ-plot des résidus
+qqnorm(residus)
+qqline(residus)
+
+```
+```{r}
+
+# Test de normalité de Shapiro-Wilk
+shapiro_test <- shapiro.test(residus)
+shapiro_test
+
+```
+
+```{r}
+#install.packages("moments")
+library(moments)
+# Test de Jarque-Bera
+jarque_bera_test <- jarque.test(residus)
+jarque_bera_test
+```
+
+
+```{r}
+# Test de Kolmogorov-Smirnov
+ks_test <- ks.test(residus, "pnorm", mean = mean(residus), sd = sd(residus))
+ks_test
+```
+```{r}
+# Test de Kolmogorov-Smirnov
+ks_test <- ks.test(residus, "pnorm", mean = mean(residus), sd = sd(residus))
+ks_test
+```
+
+## Etape 5: Evaluation du pouvoir prédictif
+```{r}
+
+# Prédictions sur l'ensemble de données d'entraînement
+predictions_train <- predict(modele_regression, newdata = donnees_marketing)
+
+# Calcul de l'erreur quadratique moyenne (RMSE)
+rmse <- sqrt(mean((donnees_marketing$Ventes - predictions_train)^2))
+rmse
+```
+```{r}
+library(ggplot2)
+
+
+# Création d'un dataframe pour les données réelles et prédites
+donnees_graphique <- data.frame(Depenses_Publicitaires = donnees_marketing$Depenses_Publicitaires, Reel = donnees_marketing$Ventes, Prédit = predictions_train)
+
+# Création du graphique en nuage de points
+graphique_nuage_points <- ggplot(donnees_graphique, aes(x = Depenses_Publicitaires, y = Reel)) +
+  geom_point(aes(color = "Réelles"), size = 3, alpha = 0.6) +
+  geom_point(aes(x = Depenses_Publicitaires, y = Prédit, color = "Prédites"), size = 3, alpha = 0.6) +
+  labs(title = "Nuage de Points des Valeurs Réelles et Prédites",
+       x = "Dépenses Publicitaires",
+       y = "Valeurs") +
+  scale_color_manual(values = c("Réelles" = "blue", "Prédites" = "red")) +
+  theme_minimal() +
+  xlim(0, max(donnees_graphique$Depenses_Publicitaires)) +
+  ylim(0, max(max(donnees_graphique$Reel), max(donnees_graphique$Prédit)))
+
+print(graphique_nuage_points)
+```
+
+
+
+
+## Etape 6: Prédiction sur de nouvelles données
+
+
+
+Vous pouvez utiliser le modèle de régression que nous avons construit pour faire des prédictions sur de nouvelles données. Pour cela, assurez-vous d'avoir des nouvelles données avec les mêmes variables que celles utilisées dans le modèle (dans notre cas, "Dépenses Publicitaires").
+
+```{r prediction-nouvelles-donnees, echo=TRUE}
+# Nouvelles données avec les valeurs de Dépenses Publicitaires
+nouvelles_donnees <- data.frame(Depenses_Publicitaires = c(3000, 4000, 5000))
+
+# Prédiction avec le modèle de régression
+predictions <- predict(modele_regression, nouvelles_donnees)
+
+# Affichage des prédictions
+predictions
+```
+
+
+# Régression linéaire multiple
+
+Construire un modèle de régression linéaire pour la prédiction des ventes en fonction des dépenses publicitaires suivant plusieurs canaux: la télé, la radio, les journaux.
+
+## Etape 1: Descrpiton des données 
+
+```{r}
+advertisement <- read.csv("/Users/natachanjongwayepnga/Documents/GitHub/Sans titre/WAS18/data/Advertising.csv",sep = ";")
+head(advertisement)
+```
+
+
+
+### Statistique descriptive univarié
+```{r}
+summary(advertisement)
+```
+
+### Boxplot des variables
+```{r}
+par(mfrow=c(1,4))
+boxplot(advertisement$TV, main="TV")
+boxplot(advertisement$Radio, main="Radio")
+boxplot(advertisement$Newspaper, main="Newspaper")
+boxplot(advertisement$Sales, main="Sales")
+```
+
+## Etape 2: Analyes bivariées
+### Nuage de points entre les variables
+```{r}
+pairs(advertisement)
+```
+
+### Matrice de corrélation
+
+# Calculate the correlation matrix
+```{r}
+#install.packages("corrplot")
+library(corrplot)
+correlation_matrix <- cor(advertisement)
+# HeatMap des corrélation
+corrplot(correlation_matrix, method = "color", type = "upper", 
+         tl.col = "black", tl.srt = 45, addCoef.col = "black", 
+         number.cex = 0.7, number.digits = 2)
+```
+
+
+
+## Etape 3: Modélisation
+
+```{r}
+model <- lm(Sales ~ TV + Radio + Newspaper, data=advertisement)
+summary(model)
+```
+
+
+## Etape 4: Vérification des hypothèses
+
+### H1: Linéarité 
+```{r}
+par(mfrow=c(2,2))
+plot(model)
+```
+
+### H2: Nullité de l'espérance des erreurs
+```{r}
+mean(residuals(model))
+```
+
+### H3: Non autocorrélation 
+```{r}
+library(lmtest)
+dwtest(model)
+```
+
+### H4: Homoscédasticité
+```{r}
+bptest(model)
+```
+
+### H5: Absence de multicolinéarité
+```{r}
+library(car)
+vif(model) 
+```
+
+### H6: Normalité (optionnel)
+
+```{r}
+# Histogramme des résidus
+hist(residuals(model), breaks=20, main="Histogramme des résidus", xlab="Résidus")
+```
+
+
+```{r}
+# Q-Q plot des résidus
+qqnorm(residuals(model))
+qqline(residuals(model), col = "red")
+```
+
+
+```{r}
+shapiro.test(residuals(model))
+```
+
