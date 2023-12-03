@@ -1,0 +1,536 @@
+---
+title: "WAS 19: Régression Logistique dans la pratique"
+author: "Natacha NJONGWA YEPNGA"
+date: "`r Sys.Date()`"
+output: 
+  word_document:
+    toc: true
+header-includes:
+  - "\\usepackage{hyperref}"  # Importation du package hyperref pour les liens
+---
+
+# [LeCoinStat](https://youtube.com/c/LeCoinStat?sub_confirmation=1)
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+[![Vidéo disponible sur LeCoinStat](https://www.youtube.com/watch?v=XOfyd7DuFbw&list=PLyh35eYRez8fPQY7ujGjWI4lusS4jxp2N&index=18)](https://www.youtube.com/watch?v=XOfyd7DuFbw&list=PLyh35eYRez8fPQY7ujGjWI4lusS4jxp2N&index=18)
+
+
+
+# Etape 1: Définition du problème
+Développer un modèle qui permet de prédire la présence d'une maladie cardiaque chez les patients.
+
+Quels sont les principaux facteurs prédictifs d'une maladie cardiaque?
+
+# Etape 2: Collecte des données
+Les informations pour la démonstration proviennent du dépôt de machine learning de l'Université de Californie à Irvine (UCI). 
+[UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/index.php)
+
+Il s'agit plus précisément du jeu de données sur les maladies cardiaques.
+Vous pouvez accéder à ces données en visitant le site de l'UCI dédié au machine learning et en cherchant le jeu de données en question: [Heart Disease Data Set](http://archive.ics.uci.edu/ml/datasets/Heart+Disease)
+
+La base est également disponible sur Kaggle: [Heart Failure Prediction](https://www.kaggle.com/datasets/fedesoriano/heart-failure-prediction)
+
+```{r}
+url <- "https://raw.githubusercontent.com/LeCoinStat/WAS/main/WAS19/data/heart.csv"
+data <- read.csv(url, header=TRUE)
+```
+```{r}
+head(data)
+```
+
+
+```{r}
+# Renommer les colonnes
+colnames(data) <- c(
+  "Age",             # Âge
+  "Sexe",            # Sexe
+  "TypeDouleurThoracique",  # Type de Douleur Thoracique
+  "TensionRepos",    # Tension au Repos
+  "Cholesterol",     # Cholestérol
+  "GlycemieAJeun",   # Glycémie à Jeun
+  "ECGRepos",        # Electrocardiogramme au repos
+  "FreqCardiaqueMax",# Fréquence Cardiaque Maximale
+  "AngineExercice",  # Angine d'Exercice
+  "DepressionST",    # Dépression ST
+  "PenteST",         # Pente ST (aspect de l'électrocardiogramme)
+  "MaladieCardiaque" # Maladie Cardiaque
+)
+
+# Afficher la structure des données pour vérifier les nouveaux noms de colonnes
+str(data)
+```
+
+
+
+```{r}
+# Afficher la structure du cadre de données pour voir le type de chaque variable
+str(data)
+```
+```{r}
+# Convertir la variable 'MaladieCardiaque' en facteur
+data$MaladieCardiaque <- factor(data$MaladieCardiaque)
+
+# Vérifier la modification
+str(data$MaladieCardiaque)
+```
+
+
+ 
+# Etape 3: prétraitement des données
+Ici il faut analyser la distribution des variables, analyser les valeurs manquantes, analyser les valeurs aberrantes etc.
+
+## Analyse exploratoire
+```{r}
+
+# Analyse des valeurs manquantes
+summary(data) # Résumé basique pour voir les valeurs manquantes
+```
+
+
+## Analyse des valeurs manquantes
+
+```{r}
+# Charger la bibliothèque pour la gestion des données manquantes
+if (!require("naniar")) {
+  # Si elle n'est pas installée, installer la bibliothèque
+  install.packages("naniar")
+}
+
+
+library(naniar)
+# Analyse des valeurs manquantes
+vis_miss(data) # Visualisation des données manquantes
+```
+
+## Analyse des distributions des variables quantitatives
+```{r}
+# Histogramme pour l'Age
+hist(data$Age, main = "Distribution de l'Âge", xlab = "Âge", col = "blue")
+
+# Histogramme pour la Tension au Repos
+hist(data$TensionRepos, main = "Distribution de la Tension au Repos", xlab = "Tension Artérielle (mm Hg)", col = "green")
+
+# Histogramme pour le Cholesterol
+hist(data$Cholesterol, main = "Distribution du Cholestérol", xlab = "Cholestérol (mg/dl)", col = "red")
+
+# Histogramme pour la Glycemie à Jeun
+hist(data$GlycemieAJeun, main = "Glycémie à Jeun", xlab = "Glycémie (mg/dl)", col = "orange")
+
+# Histogramme pour la Fréquence Cardiaque Maximale
+hist(data$FreqCardiaqueMax, main = "Fréquence Cardiaque Maximale", xlab = "Fréquence Cardiaque (bpm)", col = "purple")
+
+# Histogramme pour la Depression ST
+hist(data$DepressionST, main = "Dépression ST", xlab = "Dépression ST (mm)", col = "brown")
+
+```
+
+## Analyse des boxplots des variables numériques
+
+```{r}
+# Tracer les boxplots
+par(mfrow = c(3, 2)) # Organiser les graphiques en 3 lignes et 2 colonnes
+
+# Boxplot pour l'Age
+boxplot(data$Age, main = "Boxplot de l'Âge", ylab = "Âge")
+
+# Boxplot pour la Tension au Repos
+boxplot(data$TensionRepos, main = "Boxplot de la Tension au Repos", ylab = "Tension Artérielle (mm Hg)")
+
+# Boxplot pour le Cholesterol
+boxplot(data$Cholesterol, main = "Boxplot du Cholestérol", ylab = "Cholestérol (mg/dl)")
+
+# Boxplot pour la Glycemie à Jeun
+boxplot(data$GlycemieAJeun, main = "Boxplot de la Glycémie à Jeun", ylab = "Glycémie (mg/dl)")
+
+# Boxplot pour la Fréquence Cardiaque Maximale
+boxplot(data$FreqCardiaqueMax, main = "Boxplot de la Fréquence Cardiaque Maximale", ylab = "Fréquence Cardiaque (bpm)")
+
+# Boxplot pour la Depression ST
+boxplot(data$DepressionST, main = "Boxplot de la Dépression ST", ylab = "Dépression ST (mm)")
+```
+
+## Analyse des variables qualitatives
+```{r}
+
+# Table et proportions pour 'MaladieCardiaque'
+maladieCardiaqueTable <- table(data$MaladieCardiaque)
+proportionsMaladieCardiaque <- round(prop.table(maladieCardiaqueTable) * 100, 1)
+labels <- paste(names(maladieCardiaqueTable), "\n", proportionsMaladieCardiaque, "%", sep="")
+
+# Diagramme en camembert avec proportions
+pie(maladieCardiaqueTable, labels = labels, main = "Répartition de la Maladie Cardiaque", col = c("red", "green"))
+
+```
+```{r}
+# Fonction pour créer un barplot de proportion avec valeurs
+barplot_proportion <- function(variable, data, title) {
+  table_var <- table(data[[variable]])
+  prop_table <- prop.table(table_var)
+  bp <- barplot(prop_table, main = title, xlab = variable, col = rainbow(length(prop_table)), ylim = c(0, max(prop_table) + 0.1))
+  
+  # Ajouter les valeurs sur les barres
+  text(bp, prop_table + 0.02, round(prop_table*100, 1), cex = 0.8, pos = 3)
+}
+
+# Barplot pour 'Sexe'
+barplot_proportion("Sexe", data, "Proportion par Sexe")
+
+# Barplot pour 'TypeDouleurThoracique'
+barplot_proportion("TypeDouleurThoracique", data, "Proportion de Type de Douleur Thoracique")
+
+# Barplot pour 'ECGRepos'
+barplot_proportion("ECGRepos", data, "Proportion d'ECG au Repos")
+
+# Barplot pour 'AngineExercice'
+barplot_proportion("AngineExercice", data, "Proportion d'Angine d'Exercice")
+
+# Barplot pour 'PenteST'
+barplot_proportion("PenteST", data, "Proportion de Pente ST")
+```
+
+
+# Etape 4: Sélection des Caractéristiques pertinentes
+
+## Sélection des variables qualitatives
+-Faire les analyses graphiques
+-Faire des analyses de liaison via le test de chi deux, le v de cramer, analyser l'IV, le WOE et
+
+### Analyse de barplot bivarié
+```{r}
+if (!require("ggplot2")) {
+  # Si elle n'est pas installée, installer la bibliothèque
+  install.packages("ggplot2")
+}
+
+library(ggplot2)
+# Création des barplots bivariés
+# Assurez-vous que les variables qualitatives sont du bon type
+data$Sexe <- factor(data$Sexe, ordered = TRUE)
+data$TypeDouleurThoracique <- factor(data$TypeDouleurThoracique, ordered = TRUE)
+data$ECGRepos <- factor(data$ECGRepos, ordered = TRUE)
+data$AngineExercice <- factor(data$AngineExercice, ordered = TRUE)
+data$PenteST <- factor(data$PenteST, ordered = TRUE)
+
+# Créer des barplots pour chaque variable qualitative par rapport à MaladieCardiaque
+barplot_plots <- lapply(names(data)[sapply(data, is.factor)],
+                        function(variable) {
+                          ggplot(data, aes(x = factor(MaladieCardiaque), fill = .data[[variable]])) +
+                            geom_bar(position = "fill") +
+                            labs(title = paste("Répartition de", variable, "par Maladie Cardiaque"),
+                                 x = "Maladie Cardiaque",
+                                 y = "Proportion") +
+                            theme_minimal() +
+                            scale_fill_brewer(palette = "Set1")
+                        })
+
+# Afficher les barplots dans une grille (2 par ligne)
+library(gridExtra)
+do.call(grid.arrange, c(barplot_plots, ncol = 2))
+
+```
+```{r}
+# Création du tableau pour les résultats des tests
+results <- data.frame(Variable = character(), Chi_square = numeric(), P_value = numeric(), Cramers_V = numeric())
+
+# Variables qualitatives
+variables_qualitatives <- c("Sexe", "TypeDouleurThoracique", "ECGRepos", "AngineExercice", "PenteST")
+
+for (var in variables_qualitatives) {
+  # Création du tableau de contingence
+  contingency_table <- table(data[[var]], data$MaladieCardiaque)
+  
+  # Test du chi-carré
+  chi_squared_test <- chisq.test(contingency_table)
+  
+  # Calcul du V de Cramer
+  cramer_v <- sqrt(chi_squared_test$statistic / (nrow(data) * (min(nrow(contingency_table), ncol(contingency_table)) - 1)))
+  
+  # Ajouter les résultats au tableau
+  results <- rbind(results, data.frame(Variable = var, Chi_square = chi_squared_test$statistic, P_value = chi_squared_test$p.value, Cramers_V = cramer_v))
+}
+
+# Trier les résultats par V de Cramer croissant
+results <- results[order(-results$Cramers_V), ]
+
+# Afficher les résultats
+print(results)
+
+```
+
+## Sélection des caractéristiques numérique
+```{r}
+# Charger la bibliothèque ggplot2 si ce n'est pas déjà fait
+if (!require(ggplot2)) {
+  install.packages("ggplot2")
+  library(ggplot2)
+}
+
+# Créer une fonction pour générer des boxplots bivariés
+boxplot_bivarie <- function(data, variable_x, variable_y) {
+  ggplot(data, aes(x = factor(variable_x), y = variable_y)) +
+    geom_boxplot(fill = factor(variable_x)) +
+    labs(title = paste("Boxplot de", variable_y, "par", variable_x),
+         x = variable_x, y = variable_y) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+}
+
+# Variables quantitatives à explorer
+variables_quantitatives <- c("Age", "TensionRepos", "Cholesterol", "GlycemieAJeun", "FreqCardiaqueMax", "DepressionST")
+
+
+# Créer des boxplots bivariés pour chaque variable quantitative
+ #Charger la bibliothèque ggplot2 si ce n'est pas déjà fait
+if (!require(ggplot2)) {
+  install.packages("ggplot2")
+  library(ggplot2)
+}
+
+# Créer un boxplot bivarié pour chaque variable quantitative par rapport à MaladieCardiaque
+boxplot_plots <- lapply(names(data)[sapply(data, is.numeric)],
+                        function(variable) {
+                          ggplot(data, aes(x = factor(MaladieCardiaque), y = .data[[variable]], fill = factor(MaladieCardiaque))) +
+                            geom_boxplot() +
+                            labs(title = paste("Boxplot de", variable, "par Maladie Cardiaque"),
+                                 x = "Maladie Cardiaque", y = variable) +
+                            theme_minimal()
+                        })
+
+# Afficher les boxplots dans une grille (2 par ligne)
+library(gridExtra)
+do.call(grid.arrange, c(boxplot_plots, ncol = 2))
+```
+
+```{r}
+# Variables numériques
+variables_numeriques <- c("Age", "TensionRepos", "Cholesterol", "GlycemieAJeun", "FreqCardiaqueMax", "DepressionST")
+
+# Créer un tableau pour les résultats
+results <- data.frame(Variable = character(), Kruskal_Wallis = numeric(), P_value = numeric())
+
+for (var in variables_numeriques) {
+  # Effectuer le test de Kruskal-Wallis
+  kruskal_test <- kruskal.test(data[[var]] ~ data$MaladieCardiaque)
+  
+  # Ajouter les résultats au tableau
+  results <- rbind(results, data.frame(Variable = var, Kruskal_Wallis = kruskal_test$statistic, P_value = kruskal_test$p.value))
+}
+
+# Trier les résultats par la statistique de test décroissant
+results <- results[order(results$Kruskal_Wallis, decreasing = TRUE), ]
+
+# Afficher les résultats
+print(results)
+```
+
+
+## Analyse de la multicolinéarité
+
+### Corrélation entre les grandeur numérique
+```{r}
+# Sélectionner les variables numériques
+variables_numeriques <- data[, c("Age", "TensionRepos", "Cholesterol", "GlycemieAJeun", "FreqCardiaqueMax", "DepressionST")]
+
+# Calculer la matrice de corrélation
+correlation_matrix <- cor(variables_numeriques, use = "complete.obs")
+
+# Installer et charger corrplot
+if (!require(corrplot)) install.packages("corrplot")
+library(corrplot)
+
+# Créer la heatmap de corrélation
+corrplot(correlation_matrix, method = "color", type = "upper", 
+         tl.col = "black", tl.srt = 45, addCoef.col = "black", 
+         number.cex = 0.7, number.digits = 2)
+```
+
+
+
+# Etape 5: Partitionnement des données
+
+```{r}
+# Installer et charger le package caret si nécessaire
+if (!require(caret)) install.packages("caret")
+library(caret)
+
+# Définir la proportion de données à garder dans l'ensemble d'entraînement (par exemple, 70%)
+proportion_entrainement <- 0.7
+
+# Créer des indices pour un partitionnement stratifié
+set.seed(123) # Pour la reproductibilité
+indices_entrainement <- createDataPartition(data$MaladieCardiaque, p = proportion_entrainement, list = FALSE)
+
+# Créer les ensembles d'entraînement et de test
+data_entrainement <- data[indices_entrainement, ]
+data_test <- data[-indices_entrainement, ]
+
+# Fonction pour créer un pie chart avec proportions
+creer_pie_chart <- function(data_subset, title) {
+  counts <- table(data_subset$MaladieCardiaque)
+  proportions <- round(100 * counts / sum(counts), 1)
+  labels <- paste(names(counts), "\n", proportions, "%", sep="")
+  
+  pie(counts, labels = labels, main = title, col = c("red", "green"))
+}
+
+# Créer un pie chart pour l'ensemble d'entraînement
+par(mfrow = c(1, 2)) # Pour afficher les deux diagrammes côte à côte
+creer_pie_chart(data_entrainement, "Répartition de Maladie Cardiaque (Entraînement)")
+
+# Créer un pie chart pour l'ensemble de test
+creer_pie_chart(data_test, "Répartition de Maladie Cardiaque (Test)")
+
+```
+
+
+
+# Etape 6: Entrainement du modèle
+```{r}
+# Entraînement du modèle de régression logistique avec glm
+modele_logistique <- glm(MaladieCardiaque ~ ., data = data_entrainement, family = binomial)
+
+# Afficher le résumé du modèle
+summary(modele_logistique)
+```
+```{r}
+#install.packages("lmtest")
+library(lmtest)
+
+# Effectuer le test du rapport de vraisemblance (Likelihood Ratio Test)
+test_lr <- lrtest(modele_logistique)
+
+# Afficher les résultats du test
+print(test_lr)
+
+```
+
+
+```{r}
+# Calculer les déviations nulles et proposées
+ll.null <- modele_logistique$null.deviance / -2
+ll.proposed <- modele_logistique$deviance / -2
+
+# Calculer le pseudo R-carré de McFadden
+pseudo_r_squared_mcfadden <- 1 - (ll.proposed / ll.null)
+
+# Afficher le pseudo R-carré de McFadden
+print(pseudo_r_squared_mcfadden)
+```
+
+
+
+
+# Etape 7: Interprétation des résultats
+
+```{r}
+# Obtenir les coefficients estimés du modèle
+coefficients <- coef(modele_logistique)
+
+# Calculer les rapports de cotes en exponentiant les coefficients
+odds_ratios <- exp(coefficients)
+
+# Créer un tableau avec les noms des variables et leurs rapports de cotes
+variables <- names(coefficients)
+tableau_odds_ratios <- data.frame(Variable = variables, OddsRatio = odds_ratios)
+
+# Afficher le tableau des rapports de cotes
+tableau_odds_ratios
+```
+
+# Etape 8: Evaluation et prédiction
+
+## Evaluation du modèle
+```{r}
+# Vérifier si la bibliothèque pROC est déjà installée, sinon l'installer
+if (!require(pROC)) {
+  install.packages("pROC")
+  library(pROC)
+}
+
+
+probas_train <- predict(modele_logistique, data_entrainement, type = "response")
+probas_test <- predict(modele_logistique, data_test, type = "response")
+
+roc_train <- roc(response = data_entrainement$MaladieCardiaque, predictor = probas_train)
+roc_test <- roc(response = data_test$MaladieCardiaque, predictor = probas_test)
+
+# Afficher les courbes ROC avec AUC
+par(mfrow=c(1,2))  # Afficher deux graphiques côte à côte
+plot(roc_train, main = "Courbe ROC - Base d'Entraînement", col = "blue", print.auc = TRUE)
+plot(roc_test, main = "Courbe ROC - Base Test", col = "red", print.auc = TRUE)
+
+auc_train <- auc(roc_train)
+auc_test <- auc(roc_test)
+
+auc_table <- data.frame(Base = c("Entraînement", "Test"), AUC = c(auc_train, auc_test))
+
+print(auc_table)
+```
+```{r}
+# Installer et charger la bibliothèque ggplot2 si elle n'est pas déjà installée
+if (!require(ggplot2)) {
+  install.packages("ggplot2")
+  library(ggplot2)
+}
+
+
+# Prédire les probabilités sur la base d'entraînement
+probas_train <- predict(modele_logistique, data_entrainement, type = "response")
+
+# Créer un data frame avec les probabilités prédites et les étiquettes de maladie cardiaque
+predicted_data <- data.frame(Probabilite = probas_train, MaladieCardiaque = data_entrainement$MaladieCardiaque)
+
+# Remplacer les valeurs de MaladieCardiaque (0 par "Non Malade" et 1 par "Malade")
+predicted_data$MaladieCardiaque <- factor(predicted_data$MaladieCardiaque, levels = c(0, 1), labels = c("Non Malade", "Malade"))
+
+# Créer un graphique de densité pour les malades et les non malades
+ggplot(predicted_data, aes(x = Probabilite, fill = MaladieCardiaque)) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Densité de Probabilité Prédite - Malades vs. Non Malades", x = "Probabilité Prédite") +
+  scale_fill_manual(values = c("Non Malade" = "blue", "Malade" = "red")) +
+  theme_minimal() +
+  theme(legend.title = element_blank()) +  # Supprimer le titre de la légende
+  labs(fill = "Maladie Cardiaque")  # Renommer la légende
+```
+
+
+
+```{r}
+# Installer et charger la bibliothèque caret si elle n'est pas déjà installée
+if (!require(caret)) {
+  install.packages("caret")
+  library(caret)
+}
+
+# Prédire les classes en utilisant un seuil de probabilité de 0.5 pour la base d'entraînement
+seuil <- 0.5
+predictions_train <- ifelse(probas_train >= seuil, 1, 0)
+predictions_train <- factor(predictions_train, levels = c(0, 1))
+
+# Créer la matrice de confusion pour la base d'entraînement
+confusion_matrix_train <- confusionMatrix(predictions_train, data_entrainement$MaladieCardiaque)
+
+# Prédire les classes en utilisant un seuil de probabilité de 0.5 pour la base de test
+predictions_test <- ifelse(probas_test >= seuil, 1, 0)
+predictions_test <- factor(predictions_test, levels = c(0, 1))
+# Créer la matrice de confusion pour la base de test
+confusion_matrix_test <- confusionMatrix(predictions_test, data_test$MaladieCardiaque)
+
+# Afficher les matrices de confusion
+confusion_matrix_train
+confusion_matrix_test
+```
+
+
+
+
+
+
+
+
