@@ -1,0 +1,389 @@
+---
+title: "WAS 20: Le Modèle ARIMA dans la pratique"
+author: "Natacha NJONGWA YEPNGA"
+date: "`r Sys.Date()`"
+output: 
+  word_document:
+    toc: true
+header-includes:
+  - "\\usepackage{hyperref}"  # Importation du package hyperref pour les liens
+---
+
+# [LeCoinStat](https://youtube.com/c/LeCoinStat?sub_confirmation=1)
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+[![Vidéo disponible sur LeCoinStat](https://www.youtube.com/watch?v=XOfyd7DuFbw&list=PLyh35eYRez8fPQY7ujGjWI4lusS4jxp2N&index=18)](https://www.youtube.com/watch?v=XOfyd7DuFbw&list=PLyh35eYRez8fPQY7ujGjWI4lusS4jxp2N&index=18)
+
+
+# Présentation du modèle ARIMA
+
+Le modèle ARIMA (AutoRegressive Integrated Moving Average) est une méthode couramment utilisée pour modéliser et prévoir les séries temporelles. Il combine les composantes de l'autorégression (AR) et de la moyenne mobile (MA) avec une différenciation (I) pour prendre en compte les tendances et les comportements saisonniers dans les données.
+
+## Composantes du modèle ARIMA
+
+- **AR (Autorégression)** : L'AR fait référence à la régression linéaire des valeurs actuelles sur les valeurs précédentes de la série temporelle. Il capture les effets de dépendance linéaire à partir des valeurs passées.
+- **MA (Moyenne mobile)** : Le MA utilise la moyenne mobile des erreurs précédentes pour modéliser la relation entre les résidus et les observations actuelles de la série temporelle. Il capture les effets de dépendance entre les résidus.
+- **I (Différenciation)** : La différenciation est utilisée pour rendre les données stationnaires en supprimant les tendances et les comportements saisonniers. Elle consiste à prendre la différence entre les observations consécutives jusqu'à obtenir une série stationnaire.
+
+## Ordres du modèle ARIMA
+
+Le modèle ARIMA est défini par trois ordres : p, d et q.
+
+- **p (Ordre AR)** : L'ordre AR spécifie le nombre de termes autorégressifs à inclure dans le modèle. Il indique combien de valeurs passées sont utilisées pour prédire la valeur actuelle.
+- **d (Ordre de différenciation)** : L'ordre de différenciation indique combien de fois la série doit être différenciée pour rendre les données stationnaires.
+- **q (Ordre MA)** : L'ordre MA spécifie le nombre de termes de la moyenne mobile à inclure dans le modèle. Il indique combien de résidus passés sont utilisés pour prédire l'observation actuelle.
+
+# Méthodologie de Box-Jenkins le modèle ARIMA
+
+La méthodologie de Box-Jenkins est une approche couramment utilisée pour modéliser et prévoir les séries temporelles. Elle comprend les étapes suivantes :
+
+1. **Identification du modèle**
+
+   - Analyse des données : Examiner les données de la série temporelle pour détecter les tendances, les saisonnalités et les comportements anormaux.
+   - Différenciation : Si la série temporelle présente une tendance ou une saisonnalité, appliquer une différenciation pour rendre les données stationnaires.
+   - Identification des ordres : Utiliser les graphiques ACF (fonction d'autocorrélation) et PACF (fonction d'autocorrélation partielle) pour déterminer les ordres p, d et q du modèle ARIMA.
+
+2. **Estimation du modèle**
+
+   - Estimation des paramètres : Utiliser les méthodes d'estimation (telles que la méthode des moindres carrés) pour estimer les paramètres du modèle ARIMA.
+
+3. **Vérification du modèle**
+
+   - Diagnostic du modèle : Vérifier si les résidus du modèle ARIMA sont bruit blanc (c'est-à-dire s'ils ne présentent pas de structure ou de corrélation significative).
+   - Réajustement : Si le modèle ne satisfait pas les critères de bruit blanc, ajuster les ordres du modèle ARIMA et répéter les étapes précédentes.
+   - Validation : Valider les performances du modèle en effectuant des prédictions sur des données de validation ou en utilisant des mesures d'évaluation telles que l'erreur quadratique moyenne (RMSE) ou le critère d'information d'Akaike (AIC).
+
+La méthodologie de Box-Jenkins est itérative, ce qui signifie que les étapes d'identification, d'estimation et de vérification peuvent être répétées plusieurs fois pour améliorer le modèle. L'objectif est de trouver le meilleur modèle ARIMA qui capture les motifs et les caractéristiques importantes de la série temporelle, et qui peut être utilisé pour effectuer des prédictions précises.
+
+# Description de la base de données
+
+La base de données AirPassengers est une série temporelle classique qui représente le nombre mensuel de passagers aériens internationaux. Elle est souvent utilisée comme exemple pour illustrer les modèles de prévision, y compris les modèles ARIMA.
+
+
+La base de données AirPassengers contient les colonnes suivantes :
+
+- **Month** : La date (mois et année) de chaque observation.
+- **Passengers** : Le nombre de passagers aériens internationaux pour chaque mois.
+
+
+Les données de la base AirPassengers couvrent la période de janvier 1949 à décembre 1960, soit 12 années de données mensuelles.
+
+Vous pouvez télécharger la base de données AirPassengers en utilisant le lien suivant :
+
+[**AirPassengers.csv**](https://raw.githubusercontent.com/jbrownlee/Datasets/master/airline-passengers.csv)
+
+
+# Etape 0: Définition de la problématique et importation des données
+```{r}
+# Chargement des packages nécessaires
+# Installer et charger pacman pour gérer les packages
+if (!require(pacman)) install.packages("pacman")
+pacman::p_load(pacman, readr, lubridate, tseries, forecast,ggplot2,plotly,lmtest)
+
+# URL du fichier CSV brut
+url <- "https://raw.githubusercontent.com/LeCoinStat/WAS/main/WAS20/data/airline_passengers.csv"
+
+# Importer les données depuis l'URL
+df <- read_csv(url)
+
+# Afficher les premières lignes de la base de données pour vérifier
+head(df)
+```
+```{r}
+# Afficher la structure du dataframe pour voir les types de données
+str(df)
+```
+```{r}
+# Conversion de la colonne 'Month' en datetime
+# Adaptez la fonction selon le format de votre date (ymd, mdy, dmy, etc.)
+df$Month <- ym(df$Month)
+```
+
+
+
+
+# Etape 1: Identification
+
+## Analyse de l'évolution de la série
+```{r}
+# Créer un graphique ggplot
+p <- ggplot(df, aes(x=Month, y=Passengers)) +
+  geom_line(color="blue") +
+  theme_minimal() +
+  labs(title="Évolution du nombre de passagers aériens", x="Temps", y="Passagers") +
+  scale_x_date(date_labels = "%Y-%m", date_breaks = "1 year") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Convertir en graphique plotly pour l'interactivité
+ggplotly(p)
+```
+## ACF et PACF
+```{r}
+# Convertir les données en série temporelle
+ts_data <- ts(df$Passengers, start=c(year(min(df$Month)), month(min(df$Month))), frequency=12)
+plot(decompose(ts_data)) # time series decomposition
+```
+
+
+L'ACF (Autocorrelation Function) et la PACF (Partial Autocorrelation Function) sont deux outils essentiels en analyse de séries temporelles. Elles permettent de comprendre les dépendances temporelles dans une série de données.
+
+### ACF (Autocorrelation Function)
+
+L'ACF mesure la corrélation entre une séquence et elle-même à différentes périodes de temps. Autrement dit, elle permet d'évaluer la similitude entre les observations en fonction du décalage de temps entre elles.
+
+**Pour un décalage 'k', l'ACF mesure la corrélation entre la série temporelle et elle-même décalée de 'k' périodes.**
+
+Par exemple, **une ACF de 0,9 à un décalage de 2 signifie que les données sont très similaires à elles-mêmes il y a deux périodes de temps**.
+
+### PACF (Partial Autocorrelation Function)
+
+La PACF est une corrélation qui exclut l'effet des termes intermédiaires. C'est-à-dire qu'elle est une mesure de la corrélation entre des observations à un certain intervalle, en tenant compte des valeurs à des intervalles plus courts.
+
+Pour un décalage 'k', **la PACF est la corrélation entre la série temporelle et elle-même décalée de 'k' périodes, mais après avoir soustrait les effets des décalages 1 à 'k-1'**.
+
+Par exemple, une PACF de 0,5 à un décalage de 3 signifie que les données sont moyennement similaires à elles-mêmes il y a trois périodes de temps, après avoir pris en compte les décalages 1 et 2.
+
+### Utilisations
+
+Les graphiques ACF et PACF sont couramment utilisés pour aider à choisir les paramètres d'un modèle ARIMA en analyse de séries temporelles. Par exemple, **le graphique ACF peut être utilisé pour identifier le terme MA (moyenne mobile)** du modèle, tandis que le graphique **PACF peut aider à identifier le terme AR (auto-régressif).**
+
+
+```{r}
+# Convertir les données en série temporelle
+ts_data <- ts(df$Passengers, start=c(year(min(df$Month)), month(min(df$Month))), frequency=12)
+
+# Calcul et affichage de l'ACF
+acf(ts_data, main="Autocorrelation Function")
+
+# Calcul et affichage de la PACF
+pacf(ts_data, main="Partial Autocorrelation Function")
+```
+
+
+## Identification de l'ordre d (différentiation)
+
+### Test de dickey fuller pour la stationnarité
+```{r}
+# Effectuer le test Augmented Dickey-Fuller
+adf_test_result <- adf.test(ts_data,k=12)
+adf_test_result
+```
+## Différencier la série
+```{r}
+# Différencier la série temporelle
+diff_ts_data <- diff(ts_data)
+# Tracer la série différenciée
+plot(diff_ts_data, main="Série temporelle différenciée", xlab="Temps", ylab="Différence")
+
+# Calculer et afficher l'ACF
+acf(diff_ts_data, main="Autocorrelation Function (ACF)")
+
+# Calculer et afficher la PACF
+pacf(diff_ts_data, main="Partial Autocorrelation Function (PACF)")
+
+# Effectuer le test de Dickey-Fuller augmenté
+adf_test_result <- adf.test(diff_ts_data,k=12)
+
+```
+
+
+
+## Analyse de l'ordre p et q 
+
+En modélisant une série temporelle avec un modèle ARIMA (AutoRegressive Integrated Moving Average), les paramètres `p` et `q` sont déterminés en examinant les graphiques de la fonction d'autocorrélation (ACF) et de la fonction d'autocorrélation partielle (PACF) :
+
+1. **Détermination de `p` (Ordre du composant autorégressif AR) :**
+   - Pour déterminer `p`, observez le graphique de la fonction d'autocorrélation partielle (PACF).
+   - Le paramètre `p` correspond au dernier décalage significatif dans le graphique PACF. Autrement dit, après le décalage `p`, les autocorrélations partielles devraient être non significatives (proches de zéro).
+   - En pratique, cela signifie que vous cherchez le nombre de barres (lags) dans le graphique PACF qui sont significativement différentes de zéro.
+
+2. **Détermination de `q` (Ordre du composant de moyenne mobile MA) :**
+   - Pour déterminer `q`, examinez le graphique de la fonction d'autocorrélation (ACF).
+   - Le paramètre `q` correspond au dernier décalage significatif dans le graphique ACF. Cela signifie que vous cherchez le nombre de barres (lags) dans le graphique ACF qui sont significativement différentes de zéro.
+
+
+```{r}
+# Calculer et afficher la PACF: détermination de p
+pacf(diff_ts_data, lag.max=15, main="Partial Autocorrelation Function (PACF)")
+
+
+
+
+
+# Calculer et afficher l'ACF détermination de q
+acf(diff_ts_data, lag.max=15, main="Autocorrelation Function (ACF)")
+
+
+```
+# Quiz
+
+
+#### Question 1: Stationnarité
+Qu'est-ce qu'une série temporelle stationnaire ?
+
+a) Une série dont la moyenne et la variance changent au fil du temps.
+b) Une série qui ne montre aucune tendance ou saisonnalité.
+c) Une série qui montre une tendance croissante sur une longue période.
+d) Une série dont les valeurs sont aléatoires et non prévisibles.
+
+#### Question 2: Procédure de Box-Jenkins
+Quelles sont les trois étapes principales de la méthodologie de Box-Jenkins pour l'analyse et la modélisation des séries temporelles ?
+
+a) Prévision, estimation, et différenciation.
+b) Identification, estimation, et vérification.
+c) Visualisation, régression, et prédiction.
+d) Normalisation, corrélation, et régression.
+
+
+
+# Etape 2: Estimation
+
+
+## Estimation automatique
+```{r}
+# Utiliser auto.arima pour trouver le meilleur modèle ARIMA
+model <- auto.arima(ts_data)
+
+# Afficher le résumé du modèle
+summary(model)
+```
+```{r}
+fit <- arima(ts_data, order=c(2, 1, 1))
+summary(fit)
+```
+
+
+# Etape 3: Validation
+
+
+
+Après avoir ajusté un modèle ARIMA, il est crucial de vérifier les résidus du modèle pour s'assurer de la qualité de l'ajustement. Les résidus sont la différence entre les valeurs observées et les valeurs prédites par le modèle. Si le modèle est bien ajusté, les résidus doivent se comporter comme un bruit blanc, c'est-à-dire être une série temporelle aléatoire à distribution normale, avec une moyenne de zéro et sans autocorrélation. Voici quelques points clés à vérifier :
+
+## Test de Ljung-Box
+
+Le test de Ljung-Box teste l'absence d'autocorrélation dans les résidus. Nous voulons que les résidus soient indépendants les uns des autres. Une faible valeur p (p < 0,05) indique une preuve d'autocorrélation.
+
+## Hétéroscédasticité
+
+L'hétéroscédasticité se réfère à la situation dans laquelle la variabilité de l'erreur de prédiction (ou résidu) n'est pas constante à travers toutes les observations. Nous préférons avoir une erreur de prédiction constante, donc la vérification de l'hétéroscédasticité est importante. Un bon modèle devrait présenter une homoscédasticité, c'est-à-dire une variance constante des résidus.
+
+## Normalité
+
+L'aspect de normalité fait référence à la distribution des résidus. Dans un bon modèle, nous attendons que les résidus suivent une distribution normale. Pour vérifier cela, nous pouvons utiliser un graphique Q-Q ou effectuer un test statistique, comme le test de Shapiro-Wilk, pour vérifier la normalité.
+
+## Graphiques des résidus
+
+En plus des tests statistiques, il est utile de tracer les résidus au fil du temps, ainsi que leur autocorrélation (ACF et PACF), pour vérifier visuellement les suppositions précédentes. Dans un modèle bien ajusté, les résidus devraient ressembler à un bruit blanc lorsqu'ils sont tracés dans le temps, et l'ACF et le PACF devraient montrer peu ou pas de corrélation significative.
+
+Rappelez-vous, aucun modèle n'est parfait, et tous ces tests et graphiques sont des outils pour vous aider à comprendre si votre modèle est "suffisamment bon" pour répondre à vos besoins spécifiques.
+
+```{r}
+# Calculer les résidus
+residuals <- residuals(fit)
+
+# Test de Ljung-Box
+
+# Initialiser un tableau pour stocker les résultats du test de Ljung-Box
+ljung_box_results <- data.frame(Order = integer(), Test_Statistic = numeric(), P_Value = numeric())
+
+# Appliquer le test de Ljung-Box pour chaque ordre de 1 à 12
+for (i in 1:12) {
+  test_result <- Box.test(residuals, lag = i, type = "Ljung-Box")
+  ljung_box_results <- rbind(ljung_box_results, data.frame(Order = i, Test_Statistic = test_result$statistic, P_Value = test_result$p.value))
+}
+
+ljung_box_results
+
+
+
+# Test de normalité (Test de Shapiro-Wilk)
+qqnorm(residuals)
+qqline(residuals)
+shapiro.test(residuals)
+
+# Tracer les résidus
+plot(residuals, main = "Residuals")
+
+# ACF et PACF des résidus
+acf(residuals, main = "ACF of Residuals")
+pacf(residuals, main = "PACF of Residuals")
+```
+
+```{r}
+# Calculer les résidus
+residuals <- residuals(model)
+
+# Test de Ljung-Box
+# Initialiser un tableau pour stocker les résultats du test de Ljung-Box
+ljung_box_results <- data.frame(Order = integer(), Test_Statistic = numeric(), P_Value = numeric())
+
+# Appliquer le test de Ljung-Box pour chaque ordre de 1 à 12
+for (i in 1:12) {
+  test_result <- Box.test(residuals, lag = i, type = "Ljung-Box")
+  ljung_box_results <- rbind(ljung_box_results, data.frame(Order = i, Test_Statistic = test_result$statistic, P_Value = test_result$p.value))
+}
+
+ljung_box_results
+
+# Test de normalité (Test de Shapiro-Wilk)
+qqnorm(residuals)
+qqline(residuals)
+shapiro.test(residuals)
+
+# Tracer les résidus
+plot(residuals, main = "Residuals")
+
+# ACF et PACF des résidus
+acf(residuals, main = "ACF of Residuals")
+pacf(residuals, main = "PACF of Residuals")
+```
+
+
+# Etape 4: Prédiction
+
+```{r}
+
+# Effectuer des prévisions pour les 24 périodes suivantes avec le modèle ARIMA
+fore <- forecast(model, h=24)
+
+# Calculer les intervalles de prédiction supérieur (U) et inférieur (L)
+# Ces intervalles représentent une marge d'erreur autour des prévisions
+U <- fore$upper[, "95%"] # Intervalle de prédiction supérieur à 95%
+L <- fore$lower[, "95%"] # Intervalle de prédiction inférieur à 95%
+
+# Tracer les données observées et les prévisions
+# Les lignes continues représentent les données observées et les prévisions
+# Les lignes en pointillés représentent les intervalles de prédiction
+ts.plot(ts_data, fore$mean, U, L, col=c(1, 2, 4, 4), lty=c(1, 1, 2, 2))
+
+# Ajouter une légende sur le graphique
+# La légende aide à distinguer les différents éléments du graphique
+legend("topleft", c("Données observées", "Prédictions", "Intervalles de prédiction (95%)"), 
+       col=c(1, 2, 4), lty=c(1, 1, 2))
+
+```
+
+
+
+#### Question 1 : Bruit Blanc
+Qu'est-ce que le "bruit blanc" dans le contexte des séries temporelles ?
+
+a) Un terme utilisé pour décrire des séries temporelles avec des modèles ARIMA.
+b) Un type de série temporelle qui ne présente aucune variation ou tendance.
+c) Le bruit sonore de fond enregistré dans les données audio.
+d) Un modèle de régression linéaire appliqué aux données temporelles.
+
+
+
+
+
+
+
+
+
