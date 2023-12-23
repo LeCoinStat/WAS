@@ -107,3 +107,12 @@ print(test_normalite_rs)
 # Test de Bartlett pour l'égalité des variances
 test_bartlett <- bartlett.test(vente ~ groupe, data = donnees)
 print(test_bartlett)
+
+# Effectuer le test de Tukey
+tukey_results <- TukeyHSD(resultats_anova)
+print(tukey_results)
+
+# Réalisation des tests post hoc de Bonferroni
+# Effectuer le test de Bonferroni
+bonferroni_results <- pairwise.t.test(donnees$vente, donnees$groupe, p.adjust.method = "bonferroni")
+print(bonferroni_results)
